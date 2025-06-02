@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knew you would say yes!</title>
+    <link rel="stylesheet" href="./yes_style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="header_text">Tha teyo you will forgive me vanera !</h1>
+        <div class="gif_container">
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3c3l5ODh3ZGN6NHhhaDE2Mjg1ZjkwOXczdDFxbWM3dTBtaW9zaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/9XY4f3FgFTT4QlaYqa/giphy.gif">
+        </div>
+    </div>
+
+    <!-- Music Player -->
+    <audio id="valentine-music" loop>
+        <source src="1.mp3" type="audio/mpeg">
+    </audio>
+    <div class="music-controls">
+        <button id="play-btn" class="music-button">♫ Play Music</button>
+        <button id="mute-btn" class="music-button">🔊</button>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const music = document.getElementById('valentine-music');
+        const playBtn = document.getElementById('play-btn');
+        const muteBtn = document.getElementById('mute-btn');
+
+        if (music && playBtn && muteBtn) {
+            // Try to auto-play on page load
+            const tryAutoPlay = () => {
+                music.play()
+                    .then(() => {
+                        playBtn.textContent = '❚❚ Pause';
+                    })
+                    .catch(error => {
+                        console.log("Auto-play prevented:", error);
+                        playBtn.textContent = '♫ Play Music';
+                    });
+            };
+
+            // Load saved state
+            const savedTime = localStorage.getItem('musicTime');
+            const wasPlaying = localStorage.getItem('musicPlaying') === 'true';
+            const wasMuted = localStorage.getItem('musicMuted') === 'true';
+
+            if (savedTime) music.currentTime = parseFloat(savedTime);
+            music.muted = wasMuted;
+
+            if (wasPlaying) {
+                tryAutoPlay();
+            }
+
+            // Update button states
+            playBtn.textContent = music.paused ? '♫ Play Music' : '❚❚ Pause';
+            muteBtn.textContent = music.muted ? '🔇' : '🔊';
+
+            // Play/Pause functionality
+            playBtn.addEventListener('click', function() {
+                if (music.paused) {
+                    music.play()
+                        .then(() => {
+                            playBtn.textContent = '❚❚ Pause';
+                            localStorage.setItem('musicPlaying', 'true');
+                        })
+                        .catch(error => {
+                            console.log("Playback failed:", error);
+                            playBtn.textContent = '♫ Click to Play';
+                        });
+                } else {
+                    music.pause();
+                    playBtn.textContent = '♫ Play Music';
+                    localStorage.setItem('musicPlaying', 'false');
+                }
+            });
+
+            // Mute/Unmute functionality
+            muteBtn.addEventListener('click', function() {
+                music.muted = !music.muted;
+                muteBtn.textContent = music.muted ? '🔇' : '🔊';
+                localStorage.setItem('musicMuted', music.muted);
+            });
+
+            // Save playback position regularly
+            setInterval(() => {
+                localStorage.setItem('musicTime', music.currentTime);
+            }, 1000);
+        }
+    });
+    </script>
+</body>
+</html>

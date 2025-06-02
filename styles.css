@@ -1,0 +1,77 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f9e3e3;
+    font-family: 'Arial', sans-serif;
+    flex-direction: column;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #d32f2f;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.yes-button {
+    font-size: 1.5em;
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.no-button {
+    font-size: 1.5em;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.gif_container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+/* Music Controls */
+.music-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+}
+
+.music-button {
+    padding: 8px 15px;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.music-button:hover {
+    background-color: #b71c1c;
+    transform: scale(1.05);
+}

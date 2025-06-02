@@ -1,0 +1,369 @@
+(<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Will you be my Valentine?</h1>
+        <div class="buttons">
+            <button class="yes-button" onclick="handleYesClick()">Yes</button>
+            <button class="no-button" onclick="handleNoClick()">No</button>
+        </div>
+        <div class="gif_container">
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDdtZ2JiZDR0a3lvMWF4OG8yc3p6Ymdvd3g2d245amdveDhyYmx6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute animated illustration">
+        </div>
+    </div>
+
+    <!-- Music Player -->
+    <audio id="valentine-music" loop>
+        <source src="1.mp3" type="audio/mpeg">
+        Your browser does not support audio
+    </audio>
+    <div class="music-controls">
+        <button id="play-btn" class="music-button">♫ Play Music</button>
+        <button id="mute-btn" class="music-button">🔊</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>)this is index.html
+
+
+
+
+
+
+(body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f9e3e3;
+    font-family: 'Arial', sans-serif;
+    flex-direction: column;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #d32f2f;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.yes-button {
+    font-size: 1.5em;
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.no-button {
+    font-size: 1.5em;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.gif_container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+/* Music Controls */
+.music-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+}
+
+.music-button {
+    padding: 8px 15px;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.music-button:hover {
+    background-color: #b71c1c;
+    transform: scale(1.05);
+})this is style.css
+
+
+
+
+
+
+
+
+
+
+
+
+
+(<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knew you would say yes!</title>
+    <link rel="stylesheet" href="./yes_style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="header_text">Knew you would say yes!</h1>
+        <div class="gif_container">
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3c3l5ODh3ZGN6NHhhaDE2Mjg1ZjkwOXczdDFxbWM3dTBtaW9zaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/9XY4f3FgFTT4QlaYqa/giphy.gif">
+        </div>
+    </div>
+
+    <!-- Music Player -->
+    <audio id="valentine-music" loop>
+        <source src="1.mp3" type="audio/mpeg">
+        Your browser does not support audio
+    </audio>
+    <div class="music-controls">
+        <button id="play-btn" class="music-button">♫ Play Music</button>
+        <button id="mute-btn" class="music-button">🔊</button>
+    </div>
+
+   <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const music = document.getElementById('valentine-music');
+    const playBtn = document.getElementById('play-btn');
+    const muteBtn = document.getElementById('mute-btn');
+
+    if (music && playBtn && muteBtn) {
+        // Load saved state
+        const savedTime = localStorage.getItem('musicTime');
+        const wasPlaying = localStorage.getItem('musicPlaying') === 'true';
+        const wasMuted = localStorage.getItem('musicMuted') === 'true';
+
+        if (savedTime) music.currentTime = parseFloat(savedTime);
+        music.muted = wasMuted;
+        if (wasPlaying) {
+            music.play()
+                .then(() => {
+                    playBtn.textContent = '❚❚ Pause';
+                })
+                .catch(error => {
+                    console.log("Auto-play failed:", error);
+                    playBtn.textContent = '♫ Click to Play';
+                });
+        }
+
+        // Update mute button state
+        muteBtn.textContent = music.muted ? '🔇' : '🔊';
+
+        // Play/Pause functionality
+        playBtn.addEventListener('click', function() {
+            if (music.paused) {
+                music.play()
+                    .then(() => {
+                        playBtn.textContent = '❚❚ Pause';
+                        localStorage.setItem('musicPlaying', 'true');
+                    })
+                    .catch(error => {
+                        console.log("Playback failed:", error);
+                        playBtn.textContent = '♫ Click to Play';
+                    });
+            } else {
+                music.pause();
+                playBtn.textContent = '♫ Play Music';
+                localStorage.setItem('musicPlaying', 'false');
+            }
+        });
+
+        // Mute/Unmute functionality
+        muteBtn.addEventListener('click', function() {
+            music.muted = !music.muted;
+            muteBtn.textContent = music.muted ? '🔇' : '🔊';
+            localStorage.setItem('musicMuted', music.muted);
+        });
+
+        // Save playback position regularly
+        setInterval(() => {
+            if (!music.paused) {
+                localStorage.setItem('musicTime', music.currentTime);
+            }
+        }, 1000);
+    }
+});
+    </script>
+</body>
+</html>)this is yes_page.html
+
+
+
+
+
+
+(body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f9e3e3;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    text-align: center;
+}
+
+.header_text {
+    font-size: 3em;
+    color: #d32f2f;
+}
+
+.gif_container img {
+    width: 100%; 
+    max-width: 500px; 
+    height: auto; 
+}
+
+/* Music Controls */
+.music-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+}
+
+.music-button {
+    padding: 8px 15px;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.music-button:hover {
+    background-color: #b71c1c;
+    transform: scale(1.05);
+})this is yes_page.css
+
+
+
+
+
+
+
+
+
+
+(// Version Check
+(async function checkForUpdates() {
+    const currentVersion = "1.0";
+    const versionUrl = "https://raw.githubusercontent.com/ivysone/Will-you-be-my-Valentine-/main/version.json";
+
+    try {
+        const response = await fetch(versionUrl);
+        if (!response.ok) {
+            console.warn("Could not fetch version information.");
+            return;
+        }
+        const data = await response.json();
+        const latestVersion = data.version;
+        const updateMessage = data.updateMessage;
+
+        if (currentVersion !== latestVersion) {
+            alert(updateMessage);
+        } else {
+            console.log("You are using the latest version.");
+        }
+    } catch (error) {
+        console.error("Error checking for updates:", error);
+    }
+})();
+
+// Valentine Logic
+const messages = [
+    "Are you sure?",
+    "Really sure??",
+    "Are you positive?",
+    "Pookie please...",
+    "Just think about it!",
+    "If you say no, I will be really sad...",
+    "I will be very sad...",
+    "I will be very very very sad...",
+    "Ok fine, I will stop asking...",
+    "Just kidding, say yes please! ❤️"
+];
+
+let messageIndex = 0;
+
+function handleNoClick() {
+    const noButton = document.querySelector('.no-button');
+    const yesButton = document.querySelector('.yes-button');
+    noButton.textContent = messages[messageIndex];
+    messageIndex = (messageIndex + 1) % messages.length;
+    const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+    yesButton.style.fontSize = `${currentSize * 1.5}px`;
+}
+
+function handleYesClick() {
+    window.location.href = "yes_page.html";
+}
+
+// Music Controls
+document.addEventListener('DOMContentLoaded', function() {
+    const music = document.getElementById('valentine-music');
+    const playBtn = document.getElementById('play-btn');
+    const muteBtn = document.getElementById('mute-btn');
+
+    if (music && playBtn && muteBtn) {
+        playBtn.addEventListener('click', function() {
+            if (music.paused) {
+                music.play()
+                    .then(() => {
+                        playBtn.textContent = '❚❚ Pause';
+                    })
+                    .catch(error => {
+                        console.log("Playback failed:", error);
+                        playBtn.textContent = '♫ Click to Play';
+                    });
+            } else {
+                music.pause();
+                playBtn.textContent = '♫ Play Music';
+            }
+        });
+
+        muteBtn.addEventListener('click', function() {
+            music.muted = !music.muted;
+            muteBtn.textContent = music.muted ? '🔇' : '🔊';
+        });
+    }
+});)this is script.js
